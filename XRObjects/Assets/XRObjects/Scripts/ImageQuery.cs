@@ -21,7 +21,7 @@ using TMPro;
 public class ImageQuery : MonoBehaviour
 {
 
-  // Get your Gemini API key here: https://makersuite.google.com/app/apikey
+  // Get your Gemini API key here: https://aistudio.google.com/app/apikey
   private string apiKey = "enter your key here";
   private string queryURL;
 

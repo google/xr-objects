@@ -1,3 +1,7 @@
+# you shouldn't need to run this file.
+# only run this file if the MediaPipe library files
+# are not working correctly
+
 import argparse
 import glob
 import os
