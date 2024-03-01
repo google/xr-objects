@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0885f594ab85594caa28e1a96cbe0d8, type: 3}
+  m_Name: MRTutorialWelcomePage
+  m_EditorClassIdentifier: 
+  Modified:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Image: {fileID: 2800000, guid: 860eb41ef08d13a47b5944ce4841b3b1, type: 3}
+  m_WindowTitle:
+    m_Untranslated: Mixed Reality Project Template
+  m_Title:
+    m_Untranslated: Welcome to the Mixed Reality Template Project!
+  m_Description:
+    m_Untranslated: "This project template seeks to help you build engaging MR experiences.
+      It provides a preconfigured project with MR packages and core components for
+      spatial interaction and UI.\n\nBefore you begin, go to Edit > Project Settings
+      > XR Plug-in Management and select the platform(s) you plan to deploy to. If
+      you don\u2019t see your platform listed, make sure you have the right build
+      targets installed in Unity Hub. \n\nPlease refer to the <a href=\"https://docs.unity3d.com/Packages/com.unity.template.mr@latest\">Quick
+      Start Guide</a> for more detailed information on the content and settings used
+      in this template."
+  m_Buttons:
+  - Text:
+      m_Untranslated: Close
+    Tooltip:
+      m_Untranslated: 
+    OnClick:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000}
+          m_TargetAssemblyTypeName: Unity.Tutorials.Core.Editor.TutorialWelcomePage,
+            Unity.Tutorials.Core.Editor
+          m_MethodName: CloseCurrentModalDialog
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1

@@ -1,0 +1,27 @@
+{
+    "name": "Unity.XR.Interaction.Toolkit.Samples.ARStarterAssets",
+    "rootNamespace": "",
+    "references": [
+        "Unity.InputSystem",
+        "Unity.XR.CoreUtils",
+        "Unity.XR.Interaction.Toolkit",
+        "Unity.XR.ARFoundation",
+        "Unity.XR.ARSubsystems",
+        "Unity.XR.Interaction.Toolkit.Samples.StarterAssets"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.xr.arfoundation",
+            "expression": "4.2.7",
+            "define": "AR_FOUNDATION_PRESENT"
+        }
+    ],
+    "noEngineReferences": false
+}

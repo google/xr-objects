@@ -1,0 +1,223 @@
+diff --git a/mediapipe/BUILD b/mediapipe/BUILD
+index fd0cbab3..992dc323 100644
+--- a/mediapipe/BUILD
++++ b/mediapipe/BUILD
+@@ -150,6 +150,31 @@ config_setting(
+     values = {"cpu": "x64_windows"},
+ )
+ 
++config_setting(
++    name = "emscripten",
++    values = {"crosstool_top": "@emsdk//emscripten_toolchain:everything"},
++    visibility = ["//visibility:public"],
++)
++
++config_setting(
++    name = "emscripten_wasm",
++    values = {
++        "crosstool_top": "@emsdk//emscripten_toolchain:everything",
++        "cpu": "wasm",
++    },
++    visibility = ["//visibility:public"],
++)
++
++config_setting(
++    name = "emscripten_wasmsimd",
++    values = {
++        "crosstool_top": "@emsdk//emscripten_toolchain:everything",
++        "cpu": "wasm",
++        "copt": "-msimd128",
++    },
++    visibility = ["//visibility:public"],
++)
++
+ exports_files(
+     ["provisioning_profile.mobileprovision"],
+     visibility = ["//visibility:public"],
+diff --git a/mediapipe/calculators/tensor/BUILD b/mediapipe/calculators/tensor/BUILD
+index 2ad98f28..fbe57934 100644
+--- a/mediapipe/calculators/tensor/BUILD
++++ b/mediapipe/calculators/tensor/BUILD
+@@ -61,6 +61,7 @@ selects.config_setting_group(
+     name = "compute_shader_unavailable",
+     match_any = [
+         "//mediapipe/gpu:disable_gpu",
++        "//mediapipe:emscripten",
+     ],
+ )
+ 
+@@ -1019,6 +1020,11 @@ cc_library(
+             "//mediapipe/gpu:gpu_buffer",
+             "//mediapipe/gpu:gpu_service",
+         ],
++        "//mediapipe:emscripten": [
++            ":image_to_tensor_converter_gl_texture",
++            "//mediapipe/gpu:gl_calculator_helper",
++            "//mediapipe/gpu:gpu_buffer",
++        ],
+         "//conditions:default": [
+             ":image_to_tensor_converter_gl_buffer",
+             "//mediapipe/gpu:gl_calculator_helper",
+diff --git a/mediapipe/gpu/BUILD b/mediapipe/gpu/BUILD
+index ee32b91e..d32b8efd 100644
+--- a/mediapipe/gpu/BUILD
++++ b/mediapipe/gpu/BUILD
+@@ -169,6 +169,9 @@ cc_library(
+         "//mediapipe:macos": [
+             "gl_context_nsgl.cc",
+         ],
++        "//mediapipe:emscripten": [
++            "gl_context_webgl.cc",
++        ],
+     }),
+     hdrs = ["gl_context.h"],
+     copts = select({
+diff --git a/mediapipe/gpu/gl_calculator_helper.cc b/mediapipe/gpu/gl_calculator_helper.cc
+index 974525a9..83b5e037 100644
+--- a/mediapipe/gpu/gl_calculator_helper.cc
++++ b/mediapipe/gpu/gl_calculator_helper.cc
+@@ -202,12 +202,17 @@ void GlCalculatorHelper::GetGpuBufferDimensions(const GpuBuffer& pixel_buffer,
+ 
+ GlTexture GlCalculatorHelper::CreateDestinationTexture(int width, int height,
+                                                        GpuBufferFormat format) {
++  GpuBuffer buffer =
++      gpu_resources_->gpu_buffer_pool().GetBuffer(width, height, format);
++
++  return CreateDestinationTexture(buffer);
++}
++
++GlTexture GlCalculatorHelper::CreateDestinationTexture(GpuBuffer& gpu_buffer) {
+   if (!framebuffer_) {
+     CreateFramebuffer();
+   }
+ 
+-  GpuBuffer gpu_buffer =
+-      gpu_resources_->gpu_buffer_pool().GetBuffer(width, height, format);
+   return MapGpuBuffer(gpu_buffer, gpu_buffer.GetWriteView<GlTextureView>(0));
+ }
+ 
+diff --git a/mediapipe/gpu/gl_calculator_helper.h b/mediapipe/gpu/gl_calculator_helper.h
+index c1b94fa8..052de740 100644
+--- a/mediapipe/gpu/gl_calculator_helper.h
++++ b/mediapipe/gpu/gl_calculator_helper.h
+@@ -170,6 +170,8 @@ class GlCalculatorHelper {
+   // ImageFrame.
+   GlTexture CreateDestinationTexture(const ImageFrame& image_frame);
+ 
++  GlTexture CreateDestinationTexture(GpuBuffer& pixel_buffer);
++
+   // The OpenGL name of the output framebuffer.
+   GLuint framebuffer() const;
+ 
+diff --git a/mediapipe/gpu/gl_context_webgl.cc b/mediapipe/gpu/gl_context_webgl.cc
+index 25cbed83..5cd6eb92 100644
+--- a/mediapipe/gpu/gl_context_webgl.cc
++++ b/mediapipe/gpu/gl_context_webgl.cc
+@@ -50,6 +50,10 @@ absl::Status GlContext::CreateContextInternal(
+     EMSCRIPTEN_WEBGL_CONTEXT_HANDLE external_context, int webgl_version) {
+   CHECK(webgl_version == 1 || webgl_version == 2);
+ 
++  if (external_context != 0) {
++    LOG(WARNING) << "external context is not supported, so it may not work correctly";
++  }
++
+   EmscriptenWebGLContextAttributes attrs;
+   emscripten_webgl_init_context_attributes(&attrs);
+   attrs.explicitSwapControl = 0;
+diff --git a/mediapipe/gpu/gl_scaler_calculator.cc b/mediapipe/gpu/gl_scaler_calculator.cc
+index fa06c885..8641788e 100644
+--- a/mediapipe/gpu/gl_scaler_calculator.cc
++++ b/mediapipe/gpu/gl_scaler_calculator.cc
+@@ -12,6 +12,8 @@
+ // See the License for the specific language governing permissions and
+ // limitations under the License.
+ 
++// Modified to enable to specify the target GpuBuffer
++
+ #include "mediapipe/framework/calculator_framework.h"
+ #include "mediapipe/framework/formats/image.h"
+ #include "mediapipe/framework/port/ret_check.h"
+@@ -68,6 +70,7 @@ using Image = mediapipe::Image;
+ //   existing calculator options, depending on field merge_fields.
+ //   OUTPUT_DIMENSIONS: the output width and height in pixels.
+ //   ROTATION: the counterclockwise rotation angle in degrees.
++//   DESTINATION: the target GpuBuffer
+ // These can also be specified as options.
+ // To enable horizontal or vertical flip, specify them in options.
+ // The flipping is applied after rotation.
+@@ -92,6 +95,7 @@ class GlScalerCalculator : public CalculatorBase {
+ 
+  private:
+   GlCalculatorHelper helper_;
++  GpuBuffer dst_buffer_;
+   int dst_width_ = 0;
+   int dst_height_ = 0;
+   float dst_scale_ = -1.f;
+@@ -128,6 +132,9 @@ absl::Status GlScalerCalculator::GetContract(CalculatorContract* cc) {
+   }
+   MP_RETURN_IF_ERROR(GlCalculatorHelper::UpdateContract(cc));
+ 
++  if (cc->InputSidePackets().HasTag("DESTINATION")) {
++    cc->InputSidePackets().Tag("DESTINATION").Set<GpuBuffer>();
++  }
+   if (cc->InputSidePackets().HasTag(kOptionsTag)) {
+     cc->InputSidePackets().Tag(kOptionsTag).Set<GlScalerCalculatorOptions>();
+   }
+@@ -194,6 +201,11 @@ absl::Status GlScalerCalculator::Open(CalculatorContext* cc) {
+     dst_width_ = dimensions[0];
+     dst_height_ = dimensions[1];
+   }
++  if (HasTagOrIndex(cc->InputSidePackets(), "DESTINATION", 1)) {
++    dst_buffer_ = cc->InputSidePackets().Tag("DESTINATION").Get<GpuBuffer>();
++    dst_width_ = dst_buffer_.width();
++    dst_height_ = dst_buffer_.height();
++  }
+   if (cc->InputSidePackets().HasTag(kRotationTag)) {
+     rotation_ccw = cc->InputSidePackets().Tag(kRotationTag).Get<int>();
+   }
+@@ -204,7 +216,7 @@ absl::Status GlScalerCalculator::Open(CalculatorContext* cc) {
+ }
+ 
+ absl::Status GlScalerCalculator::Process(CalculatorContext* cc) {
+-  if (cc->Inputs().HasTag(kOutputDimensionsTag)) {
++  if (!dst_buffer_ && cc->Inputs().HasTag(kOutputDimensionsTag)) {
+     if (cc->Inputs().Tag(kOutputDimensionsTag).IsEmpty()) {
+       // OUTPUT_DIMENSIONS input stream is specified, but value is missing.
+       return absl::OkStatus();
+@@ -286,9 +298,18 @@ absl::Status GlScalerCalculator::Process(CalculatorContext* cc) {
+               MakePacket<float>(left_right_padding).At(cc->InputTimestamp()));
+     }
+ 
+-    auto dst = helper_.CreateDestinationTexture(dst_width, dst_height,
+-                                                GetOutputFormat());
+-
++    GlTexture dst;
++#if MEDIAPIPE_GPU_BUFFER_USE_CV_PIXEL_BUFFER
++    // for iOS
++    dst = helper_.CreateDestinationTexture(dst_width, dst_height, GetOutputFormat());
++#else
++    if (dst_buffer_) {
++      dst_buffer_.internal_storage<mediapipe::GlTextureBuffer>()->Reuse();
++      dst = helper_.CreateDestinationTexture(dst_buffer_);
++    } else {
++      dst = helper_.CreateDestinationTexture(dst_width, dst_height, GetOutputFormat());
++    }
++#endif
+     helper_.BindFramebuffer(dst);
+     glActiveTexture(GL_TEXTURE1);
+     glBindTexture(src1.target(), src1.name());
+diff --git a/mediapipe/modules/objectron/objectron_gpu.pbtxt b/mediapipe/modules/objectron/objectron_gpu.pbtxt
+index 7ef2b671..83856d54 100644
+--- a/mediapipe/modules/objectron/objectron_gpu.pbtxt
++++ b/mediapipe/modules/objectron/objectron_gpu.pbtxt
+@@ -14,6 +14,10 @@ input_side_packet: "USE_PREV_LANDMARKS:use_prev_landmarks"
+ 
+ # Collection of detected 3D objects, represented as a FrameAnnotation.
+ output_stream: "FRAME_ANNOTATION:detected_objects"
++# Collection of box landmarks. (NormalizedLandmarkList)
++output_stream: "MULTI_LANDMARKS:multi_box_landmarks"
++# Crop rectangles derived from bounding box landmarks.
++output_stream: "NORM_RECTS:box_rects"
+ 
+ # When the optional input side packet "use_prev_landmarks" is either absent or
+ # set to true, uses the landmarks on the previous image to help localize

@@ -1,0 +1,516 @@
+diff --git a/mediapipe/calculators/audio/BUILD b/mediapipe/calculators/audio/BUILD
+index 4a8f0f59..2a911906 100644
+--- a/mediapipe/calculators/audio/BUILD
++++ b/mediapipe/calculators/audio/BUILD
+@@ -358,3 +358,9 @@ cc_test(
+         "@eigen_archive//:eigen3",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/calculators/core/BUILD b/mediapipe/calculators/core/BUILD
+index d773bef3..bcfea2c9 100644
+--- a/mediapipe/calculators/core/BUILD
++++ b/mediapipe/calculators/core/BUILD
+@@ -1388,3 +1388,9 @@ cc_test(
+         "@com_google_absl//absl/types:optional",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/calculators/image/BUILD b/mediapipe/calculators/image/BUILD
+index 20e5ebda..798391ad 100644
+--- a/mediapipe/calculators/image/BUILD
++++ b/mediapipe/calculators/image/BUILD
+@@ -824,3 +824,9 @@ cc_library(
+     ],
+     alwayslink = 1,
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/calculators/tensor/BUILD b/mediapipe/calculators/tensor/BUILD
+index 2ad98f28..8066acec 100644
+--- a/mediapipe/calculators/tensor/BUILD
++++ b/mediapipe/calculators/tensor/BUILD
+@@ -1437,3 +1437,9 @@ cc_test(
+         "@com_google_absl//absl/status",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/calculators/tflite/BUILD b/mediapipe/calculators/tflite/BUILD
+index 333de206..cf0927a1 100644
+--- a/mediapipe/calculators/tflite/BUILD
++++ b/mediapipe/calculators/tflite/BUILD
+@@ -542,3 +542,9 @@ cc_test(
+         "@org_tensorflow//tensorflow/lite:framework",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/calculators/util/BUILD b/mediapipe/calculators/util/BUILD
+index 4c92e949..dd577b08 100644
+--- a/mediapipe/calculators/util/BUILD
++++ b/mediapipe/calculators/util/BUILD
+@@ -1565,3 +1565,9 @@ cc_test(
+         "@com_google_absl//absl/status",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/calculators/video/BUILD b/mediapipe/calculators/video/BUILD
+index 7245b13c..c8d76930 100644
+--- a/mediapipe/calculators/video/BUILD
++++ b/mediapipe/calculators/video/BUILD
+@@ -468,3 +468,9 @@ cc_test(
+         "//mediapipe/framework/port:status",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/framework/BUILD b/mediapipe/framework/BUILD
+index a7d9e0a6..2fd709f8 100644
+--- a/mediapipe/framework/BUILD
++++ b/mediapipe/framework/BUILD
+@@ -1697,3 +1697,10 @@ cc_test(
+         "@com_google_absl//absl/strings:str_format",
+     ],
+ )
++
++# Expose the proto source files for building mediapipe AAR.
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/framework/formats/BUILD b/mediapipe/framework/formats/BUILD
+index b23209f7..eab9efcf 100644
+--- a/mediapipe/framework/formats/BUILD
++++ b/mediapipe/framework/formats/BUILD
+@@ -320,6 +320,13 @@ mediapipe_register_type(
+     deps = [":landmark_cc_proto"],
+ )
+ 
++# Expose the proto source files for building mediapipe AAR.
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
++
+ cc_library(
+     name = "image",
+     srcs = ["image.cc"],
+diff --git a/mediapipe/framework/formats/annotation/BUILD b/mediapipe/framework/formats/annotation/BUILD
+index cbbb2842..5431f28e 100644
+--- a/mediapipe/framework/formats/annotation/BUILD
++++ b/mediapipe/framework/formats/annotation/BUILD
+@@ -31,4 +31,12 @@ mediapipe_proto_library(
+ mediapipe_proto_library(
+     name = "rasterization_proto",
+     srcs = ["rasterization.proto"],
++    visibility = ["//visibility:public"],
++)
++
++# Expose the proto source files for building mediapipe AAR.
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
+ )
+diff --git a/mediapipe/framework/formats/motion/BUILD b/mediapipe/framework/formats/motion/BUILD
+index 919b8240..a9cd1c9a 100644
+--- a/mediapipe/framework/formats/motion/BUILD
++++ b/mediapipe/framework/formats/motion/BUILD
+@@ -66,3 +66,9 @@ cc_test(
+         "@org_tensorflow//tensorflow/core:framework",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/framework/formats/object_detection/BUILD b/mediapipe/framework/formats/object_detection/BUILD
+index 703d5d77..a73795f1 100644
+--- a/mediapipe/framework/formats/object_detection/BUILD
++++ b/mediapipe/framework/formats/object_detection/BUILD
+@@ -25,3 +25,9 @@ mediapipe_proto_library(
+     name = "anchor_proto",
+     srcs = ["anchor.proto"],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/gpu/BUILD b/mediapipe/gpu/BUILD
+index ee32b91e..200434be 100644
+--- a/mediapipe/gpu/BUILD
++++ b/mediapipe/gpu/BUILD
+@@ -1210,3 +1210,9 @@ mediapipe_cc_test(
+         "//third_party/libyuv",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/graphs/instant_motion_tracking/calculators/BUILD b/mediapipe/graphs/instant_motion_tracking/calculators/BUILD
+index 93af68c2..2ef17aff 100644
+--- a/mediapipe/graphs/instant_motion_tracking/calculators/BUILD
++++ b/mediapipe/graphs/instant_motion_tracking/calculators/BUILD
+@@ -82,3 +82,9 @@ cc_library(
+     ],
+     alwayslink = 1,
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/graphs/iris_tracking/calculators/BUILD b/mediapipe/graphs/iris_tracking/calculators/BUILD
+index 9ddce7f3..a9197a9f 100644
+--- a/mediapipe/graphs/iris_tracking/calculators/BUILD
++++ b/mediapipe/graphs/iris_tracking/calculators/BUILD
+@@ -84,3 +84,9 @@ cc_library(
+     ],
+     alwayslink = 1,
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/graphs/object_detection_3d/calculators/BUILD b/mediapipe/graphs/object_detection_3d/calculators/BUILD
+index d4c5c496..2e0b92f8 100644
+--- a/mediapipe/graphs/object_detection_3d/calculators/BUILD
++++ b/mediapipe/graphs/object_detection_3d/calculators/BUILD
+@@ -116,3 +116,9 @@ cc_library(
+     ],
+     alwayslink = 1,
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/java/com/google/mediapipe/components/BUILD b/mediapipe/java/com/google/mediapipe/components/BUILD
+index 630bc94c..9fc0c487 100644
+--- a/mediapipe/java/com/google/mediapipe/components/BUILD
++++ b/mediapipe/java/com/google/mediapipe/components/BUILD
+@@ -94,5 +94,5 @@ android_library(
+ filegroup(
+     name = "java_src",
+     srcs = glob(["*.java"]),
+-    visibility = ["//mediapipe:__subpackages__"],
++    visibility = ["//visibility:public"],
+ )
+diff --git a/mediapipe/java/com/google/mediapipe/framework/BUILD b/mediapipe/java/com/google/mediapipe/framework/BUILD
+index dd5f8f1d..7fa8935a 100644
+--- a/mediapipe/java/com/google/mediapipe/framework/BUILD
++++ b/mediapipe/java/com/google/mediapipe/framework/BUILD
+@@ -145,5 +145,5 @@ filegroup(
+         ["*.java"],
+         exclude = ["TypeNameRegistryFull.java"],
+     ),
+-    visibility = ["//mediapipe:__subpackages__"],
++    visibility = ["//visibility:public"],
+ )
+diff --git a/mediapipe/java/com/google/mediapipe/glutil/BUILD b/mediapipe/java/com/google/mediapipe/glutil/BUILD
+index b1c89240..cd104754 100644
+--- a/mediapipe/java/com/google/mediapipe/glutil/BUILD
++++ b/mediapipe/java/com/google/mediapipe/glutil/BUILD
+@@ -35,5 +35,5 @@ android_library(
+ filegroup(
+     name = "java_src",
+     srcs = glob(["**/*.java"]),
+-    visibility = ["//mediapipe:__subpackages__"],
++    visibility = ["//visibility:public"],
+ )
+diff --git a/mediapipe/modules/face_detection/BUILD b/mediapipe/modules/face_detection/BUILD
+index 12abfbb3..20ae41d0 100644
+--- a/mediapipe/modules/face_detection/BUILD
++++ b/mediapipe/modules/face_detection/BUILD
+@@ -177,3 +177,9 @@ mediapipe_files(
+         "face_detection_short_range.tflite",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/modules/face_geometry/BUILD b/mediapipe/modules/face_geometry/BUILD
+index c1f99675..f5836d03 100644
+--- a/mediapipe/modules/face_geometry/BUILD
++++ b/mediapipe/modules/face_geometry/BUILD
+@@ -135,3 +135,9 @@ cc_library(
+     ],
+     alwayslink = 1,
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/modules/face_geometry/protos/BUILD b/mediapipe/modules/face_geometry/protos/BUILD
+index 48b7b66c..2d53a28d 100644
+--- a/mediapipe/modules/face_geometry/protos/BUILD
++++ b/mediapipe/modules/face_geometry/protos/BUILD
+@@ -44,3 +44,9 @@ mediapipe_proto_library(
+     name = "mesh_3d_proto",
+     srcs = ["mesh_3d.proto"],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/modules/holistic_landmark/calculators/BUILD b/mediapipe/modules/holistic_landmark/calculators/BUILD
+index bc00b697..374b437e 100644
+--- a/mediapipe/modules/holistic_landmark/calculators/BUILD
++++ b/mediapipe/modules/holistic_landmark/calculators/BUILD
+@@ -58,3 +58,9 @@ cc_library(
+     ],
+     alwayslink = 1,
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/modules/objectron/calculators/BUILD b/mediapipe/modules/objectron/calculators/BUILD
+index 2e33ebf6..76ed790e 100644
+--- a/mediapipe/modules/objectron/calculators/BUILD
++++ b/mediapipe/modules/objectron/calculators/BUILD
+@@ -419,3 +419,9 @@ cc_test(
+         "@com_google_absl//absl/container:flat_hash_set",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/tasks/cc/components/containers/proto/BUILD b/mediapipe/tasks/cc/components/containers/proto/BUILD
+index 66255aed..8dab4bbc 100644
+--- a/mediapipe/tasks/cc/components/containers/proto/BUILD
++++ b/mediapipe/tasks/cc/components/containers/proto/BUILD
+@@ -42,3 +42,9 @@ mediapipe_proto_library(
+         "//mediapipe/framework/formats:rect_proto",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/tasks/cc/core/BUILD b/mediapipe/tasks/cc/core/BUILD
+index dad9cdf1..aeaed482 100644
+--- a/mediapipe/tasks/cc/core/BUILD
++++ b/mediapipe/tasks/cc/core/BUILD
+@@ -14,7 +14,7 @@
+ 
+ load("@org_tensorflow//tensorflow/lite/core/shims:cc_library_with_tflite.bzl", "cc_library_with_tflite", "cc_test_with_tflite")
+ 
+-package(default_visibility = ["//mediapipe/tasks:internal"])
++package(default_visibility = ["//visibility:public"])
+ 
+ licenses(["notice"])
+ 
+diff --git a/mediapipe/tasks/cc/core/proto/BUILD b/mediapipe/tasks/cc/core/proto/BUILD
+index 72de1be8..bd6e9781 100644
+--- a/mediapipe/tasks/cc/core/proto/BUILD
++++ b/mediapipe/tasks/cc/core/proto/BUILD
+@@ -68,3 +68,9 @@ mediapipe_proto_library(
+         "//mediapipe/framework:calculator_proto",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/tasks/cc/vision/face_detector/proto/BUILD b/mediapipe/tasks/cc/vision/face_detector/proto/BUILD
+index bdfe65ee..c795ee7e 100644
+--- a/mediapipe/tasks/cc/vision/face_detector/proto/BUILD
++++ b/mediapipe/tasks/cc/vision/face_detector/proto/BUILD
+@@ -30,3 +30,9 @@ mediapipe_proto_library(
+         "//mediapipe/tasks/cc/core/proto:base_options_proto",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/tasks/cc/vision/face_geometry/calculators/BUILD b/mediapipe/tasks/cc/vision/face_geometry/calculators/BUILD
+index 3f2833f3..1ede1db5 100644
+--- a/mediapipe/tasks/cc/vision/face_geometry/calculators/BUILD
++++ b/mediapipe/tasks/cc/vision/face_geometry/calculators/BUILD
+@@ -74,3 +74,9 @@ cc_library(
+     ],
+     alwayslink = 1,
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/tasks/cc/vision/face_geometry/proto/BUILD b/mediapipe/tasks/cc/vision/face_geometry/proto/BUILD
+index e337a345..a8f0ed52 100644
+--- a/mediapipe/tasks/cc/vision/face_geometry/proto/BUILD
++++ b/mediapipe/tasks/cc/vision/face_geometry/proto/BUILD
+@@ -64,3 +64,9 @@ mediapipe_proto_library(
+         "//mediapipe/tasks/cc/vision/face_geometry/calculators:geometry_pipeline_calculator_proto",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/tasks/cc/vision/face_landmarker/proto/BUILD b/mediapipe/tasks/cc/vision/face_landmarker/proto/BUILD
+index aa839d91..8efc28e1 100644
+--- a/mediapipe/tasks/cc/vision/face_landmarker/proto/BUILD
++++ b/mediapipe/tasks/cc/vision/face_landmarker/proto/BUILD
+@@ -64,3 +64,9 @@ mediapipe_proto_library(
+         "//mediapipe/tasks/cc/vision/face_geometry/proto:face_geometry_graph_options_proto",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/tasks/cc/vision/hand_detector/proto/BUILD b/mediapipe/tasks/cc/vision/hand_detector/proto/BUILD
+index c1453f42..2339661a 100644
+--- a/mediapipe/tasks/cc/vision/hand_detector/proto/BUILD
++++ b/mediapipe/tasks/cc/vision/hand_detector/proto/BUILD
+@@ -38,3 +38,9 @@ mediapipe_proto_library(
+         "//mediapipe/framework/formats:rect_proto",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/tasks/cc/vision/hand_landmarker/proto/BUILD b/mediapipe/tasks/cc/vision/hand_landmarker/proto/BUILD
+index d13f0afd..c2fd2c49 100644
+--- a/mediapipe/tasks/cc/vision/hand_landmarker/proto/BUILD
++++ b/mediapipe/tasks/cc/vision/hand_landmarker/proto/BUILD
+@@ -41,3 +41,9 @@ mediapipe_proto_library(
+         "//mediapipe/tasks/cc/vision/hand_detector/proto:hand_detector_graph_options_proto",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/tasks/cc/vision/pose_detector/proto/BUILD b/mediapipe/tasks/cc/vision/pose_detector/proto/BUILD
+index 53e7d5a5..3882cb6a 100644
+--- a/mediapipe/tasks/cc/vision/pose_detector/proto/BUILD
++++ b/mediapipe/tasks/cc/vision/pose_detector/proto/BUILD
+@@ -29,3 +29,9 @@ mediapipe_proto_library(
+         "//mediapipe/tasks/cc/core/proto:base_options_proto",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/tasks/cc/vision/pose_landmarker/proto/BUILD b/mediapipe/tasks/cc/vision/pose_landmarker/proto/BUILD
+index 869a1ea6..3cd6bc5a 100644
+--- a/mediapipe/tasks/cc/vision/pose_landmarker/proto/BUILD
++++ b/mediapipe/tasks/cc/vision/pose_landmarker/proto/BUILD
+@@ -41,3 +41,9 @@ mediapipe_proto_library(
+         "//mediapipe/tasks/cc/vision/pose_detector/proto:pose_detector_graph_options_proto",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/util/BUILD b/mediapipe/util/BUILD
+index b9fe8b0c..695987ad 100644
+--- a/mediapipe/util/BUILD
++++ b/mediapipe/util/BUILD
+@@ -427,3 +427,9 @@ cc_test(
+         "//mediapipe/framework/port:gtest_main",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)
+diff --git a/mediapipe/util/tracking/BUILD b/mediapipe/util/tracking/BUILD
+index 5a271ffa..70147493 100644
+--- a/mediapipe/util/tracking/BUILD
++++ b/mediapipe/util/tracking/BUILD
+@@ -654,3 +654,9 @@ cc_library(
+         "@com_google_absl//absl/container:node_hash_map",
+     ],
+ )
++
++filegroup(
++    name = "protos_src",
++    srcs = glob(["*.proto"]),
++    visibility = ["//visibility:public"],
++)

@@ -1,0 +1,38 @@
+ManifestFileVersion: 0
+CRC: 5652879
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9683d6a7df5ce1b74d927921d0877321
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 312b36f2f9ab156aa74cf892be4001db
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 9683d6a7df5ce1b74d927921d0877321
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Packages/com.unity.xr.arfoundation/Assets/Materials/YAxis.mat
+- Packages/com.unity.xr.arfoundation/Assets/Materials/XAxis.mat
+- Packages/com.unity.xr.arfoundation/Assets/Prefabs/OriginTransform.prefab
+- Packages/com.unity.xr.arfoundation/Assets/Prefabs/AnchorTransform.prefab
+- Packages/com.unity.xr.arfoundation/Assets/Materials/ZAxis.mat
+Dependencies: []

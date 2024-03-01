@@ -1,0 +1,38 @@
+{
+  "name": "com.github.homuler.mediapipe",
+  "version": "0.12.0",
+  "displayName": "MediaPipe Unity Plugin",
+  "description": "A Unity Plugin to run MediaPipe CalculatorGraph",
+  "unity": "2020.4",
+  "author": {
+    "name": "homuler"
+  },
+  "changelogUrl": "https://github.com/homuler/MediaPipeUnityPlugin/blob/master/CHANGELOG.md",
+  "documentationUrl": "https://github.com/homuler/MediaPipeUnityPlugin/wiki",
+  "keywords": [
+    "mediapipe",
+    "MediaPipe"
+  ],
+  "scripts": {
+    "setupSampleDir": "rm -rf $(npm prefix)/Samples~ && mkdir -p $(npm prefix)/Samples~",
+    "removeStartScene": "rm \"$(npm prefix)/Samples~/Solutions/Scenes/Start Scene.unity\" && rm \"$(npm prefix)/Samples~/Solutions/Scenes/Start Scene.unity.meta\"",
+    "copySolutionSamples": "cp -r $(npm prefix)/../../Assets/MediaPipeUnity/Samples $(npm prefix)/Samples~/Solutions && npm run removeStartScene",
+    "copyTutorial": "cp -r $(npm prefix)/../../Assets/MediaPipeUnity/Tutorial $(npm prefix)/Samples~/Tutorial",
+    "prepack": "npm run setupSampleDir && npm run copySolutionSamples && npm run copyTutorial",
+    "postpack": "rm -rf $(npm prefix)/Samples~"
+  },
+  "license": "MIT",
+  "licenseUrl": "https://github.com/homuler/MediaPipeUnityPlugin/blob/master/LICENSE",
+  "samples": [
+    {
+      "displayName": "Official Solutions",
+      "description": "MediaPipe Official Solutions Sample",
+      "path": "Samples~/Solutions"
+    },
+    {
+      "displayName": "Tutorial",
+      "description": "Sample Scenes for Tutorial",
+      "path": "Samples~/Tutorial"
+    }
+  ]
+}

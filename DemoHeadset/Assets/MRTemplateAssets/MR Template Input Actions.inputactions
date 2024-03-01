@@ -1,0 +1,102 @@
+{
+    "name": "MR Template Input Actions",
+    "maps": [
+        {
+            "name": "LeftHand",
+            "id": "6b3ecedb-5203-4b11-9c4e-bc024d72a9d0",
+            "actions": [
+                {
+                    "name": "Palm Position",
+                    "type": "Value",
+                    "id": "77df7cdf-9376-4a7e-bb26-b9997690ad71",
+                    "expectedControlType": "Vector3",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Palm Rotation",
+                    "type": "Value",
+                    "id": "658d8330-31f2-494e-951f-5cfba90acb5e",
+                    "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "72471180-bfbf-452d-8e11-a331889ea2c3",
+                    "path": "<XRHandDevice>{LeftHand}/gripPosition",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Palm Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b4a7d129-bdfc-4497-ba40-1b2dc88a9811",
+                    "path": "<XRHandDevice>{LeftHand}/gripRotation",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Palm Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "RightHand",
+            "id": "67551466-8b27-4293-861f-a0332e976068",
+            "actions": [
+                {
+                    "name": "Palm Position",
+                    "type": "Value",
+                    "id": "cf7ecd0d-e5fe-4b4c-8e2b-7eba9fca00a7",
+                    "expectedControlType": "Vector3",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Palm Rotation",
+                    "type": "Value",
+                    "id": "fd34d4f8-6f08-474b-9972-449bfc5eb815",
+                    "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "13b87c9e-834d-4494-a900-438e9c45c3f1",
+                    "path": "<XRHandDevice>{RightHand}/gripPosition",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Palm Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9ce6209b-d2ed-4182-906c-d1d78e4b0d58",
+                    "path": "<XRHandDevice>{RightHand}/gripRotation",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Palm Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
