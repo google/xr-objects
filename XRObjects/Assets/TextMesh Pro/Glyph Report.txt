@@ -1,0 +1,51 @@
+Font: Poppins  Style: Bold
+Point Size: 35   SP/PD Ratio: 14.3%
+
+Characters included: 216/255
+Missing characters: 39
+Excluded characters: 0
+
+Characters missing from font file:
+----------------------------------------
+ID: 8192	Hex: 2000	Char [ ]
+ID: 8193	Hex: 2001	Char [ ]
+ID: 8194	Hex: 2002	Char [ ]
+ID: 8195	Hex: 2003	Char [ ]
+ID: 8196	Hex: 2004	Char [ ]
+ID: 8197	Hex: 2005	Char [ ]
+ID: 8198	Hex: 2006	Char [ ]
+ID: 8199	Hex: 2007	Char [ ]
+ID: 8200	Hex: 2008	Char [ ]
+ID: 8201	Hex: 2009	Char [ ]
+ID: 8202	Hex: 200A	Char [ ]
+ID: 8203	Hex: 200B	Char [​]
+ID: 8206	Hex: 200E	Char [‎]
+ID: 8207	Hex: 200F	Char [‏]
+ID: 8210	Hex: 2012	Char [‒]
+ID: 8213	Hex: 2015	Char [―]
+ID: 8214	Hex: 2016	Char [‖]
+ID: 8215	Hex: 2017	Char [‗]
+ID: 8219	Hex: 201B	Char [‛]
+ID: 8223	Hex: 201F	Char [‟]
+ID: 8234	Hex: 202A	Char [‪]
+ID: 8235	Hex: 202B	Char [‫]
+ID: 8236	Hex: 202C	Char [‬]
+ID: 8237	Hex: 202D	Char [‭]
+ID: 8238	Hex: 202E	Char [‮]
+ID: 8239	Hex: 202F	Char [ ]
+ID: 8242	Hex: 2032	Char [′]
+ID: 8243	Hex: 2033	Char [″]
+ID: 8244	Hex: 2034	Char [‴]
+ID: 8252	Hex: 203C	Char [‼]
+ID: 8254	Hex: 203E	Char [‾]
+ID: 8286	Hex: 205E	Char [⁞]
+ID: 8298	Hex: 206A	Char [⁪]
+ID: 8299	Hex: 206B	Char [⁫]
+ID: 8300	Hex: 206C	Char [⁬]
+ID: 8301	Hex: 206D	Char [⁭]
+ID: 8302	Hex: 206E	Char [⁮]
+ID: 8303	Hex: 206F	Char [⁯]
+ID: 9633	Hex: 25A1	Char [□]
+
+Characters excluded from packing:
+----------------------------------------

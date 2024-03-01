@@ -1,0 +1,7 @@
+
+### Module Progurad Rules starts ###
+
+## Default ##
+-keep class com.unity3d.plugin.* { *; }
+
+### Module Progurad Rules ends ###

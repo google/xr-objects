@@ -1,0 +1,11 @@
+{
+  "RoslynExtensionsOptions": {
+    "enableAnalyzersSupport": true,
+    "LocationPaths": [
+      "./Assets/Analyzers"
+    ]
+  },
+  "FormattingOptions": {
+    "enableEditorConfigSupport": true
+  }
+}
