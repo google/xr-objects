@@ -84,6 +84,6 @@ If you use this software, please cite the following paper:
 ## Additional information
 
 You may use this software under the
-[MIT](https://github.com/google/xr-objects/blob/main/LICENSE).
+[MIT](https://github.com/google/xr-objects/blob/main/LICENSE) License.
 
 This project contains open-sourced components, including MediaPipe Unity Plugin (homuler, 2021), Unity Android Speech Recognizer plugin (Eric Batlle Clavero, 2020), Unity Radial Layout Group by Just a Pixel (Danny Goodayle, 2015), UVC4UnityAndroid by (saki4510t, 2022), as well as fonts with Open Font Licenses (OFL), such as LiberationSans, Manrope, and Poppins. The individual license files can be found under the /third_party directory.
