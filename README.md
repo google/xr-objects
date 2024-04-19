@@ -71,13 +71,12 @@ We note that the headset implementation is not fully complete, however, we provi
 If you use this software, please cite the following paper:
 
 ```bibtex
-@article{Dogan24,
-  author = {Mustafa Doga Dogan and Eric J Gonzalez and Andrea Colaco and Karan Ahuja and Ruofei Du and Johnny Lee and Mar Gonzalez-Franco and David Kim},
-  title = {Augmented Object Intelligence: Making the Analog World Interactable with XR-Objects},
-  year = {2024},
-  archivePrefix = "arXiv",
-  eprint = {TBA},
-  url = {TBA},
+@article{Dogan24XRobjects,
+   author   = {Dogan, Mustafa Doga and Gonzalez, Eric J and Colaco, Andrea and Ahuja, Karan and Du, Ruofei and Lee, Johnny 
+    and Gonzalez-Franco, Mar and Kim, David},
+   title    = {Augmented Object Intelligence: Making the Analog World Interactable with XR-Objects},
+   journal  = {arxiv},
+   year     = {2024},
 }
 ```
 
