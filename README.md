@@ -74,7 +74,7 @@ If you use this software, please cite the following paper:
 ```bibtex
 @inproceedings{Dogan_2024_XRObjects,
 	address = {New York, NY, USA},
-	title = {Augmented {Object} {Intelligence} with {XR}-{Objects}},
+	title = {Augmented Object Intelligence with XR-Objects},
 	isbn = {979-8-4007-0628-8/24/10},
 	url = {https://doi.org/10.1145/3654777.3676379},
 	doi = {10.1145/3654777.3676379},
@@ -84,7 +84,6 @@ If you use this software, please cite the following paper:
 	author = {Dogan, Mustafa Doga and Gonzalez, Eric J and Ahuja, Karan and Du, Ruofei and Colaco, Andrea and Lee, Johnny and Gonzalez-Franco, Mar and Kim, David},
 	month = oct,
 	year = {2024},
-	file = {Dogan et al. - 2024 - Augmented Object Intelligence with XR-Objects.pdf:/Users/doga/Zotero/storage/8HWDAVVG/Dogan et al. - 2024 - Augmented Object Intelligence with XR-Objects.pdf:application/pdf},
 }
 ```
 
