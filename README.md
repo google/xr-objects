@@ -1,7 +1,8 @@
 # XR-Objects: Augmented Interaction for Analog Objects
 
-XR-Objects is an implementation of Augmented Object Intelligence (AOI) as described in our paper: 
-MD Dogan, EJ Gonzalez, A Colaco, K Ahuja, R Du, J Lee, M Gonzalez-Franco*, D Kim* (2024) "Augmented Object Intelligence: Making the Analog World Interactable with XR-Objects"
+XR-Objects is an implementation of Augmented Object Intelligence (AOI) as described in our [ACM UIST'24](https://uist.acm.org/2024/) paper: 
+
+<sub>Mustafa Doga Dogan, Eric J. Gonzalez, Karan Ahuja, Ruofei Du, Andrea Colaço, Johnny Lee, Mar Gonzalez-Franco, and David Kim. 2024. Augmented Object Intelligence with XR-Objects. In The 37th Annual ACM Symposium on User Interface Software and Technology (UIST ’24), October 13–16, 2024, Pittsburgh, PA, USA. ACM, New York, NY, USA, 15 pages. https://doi.org/10. 1145/3654777.3676379 </sub>
 
 This repository contains the Unity project files for the XR-Objects project, which includes an implementation for automatically generating and anchoring actionable context menus for real-world objects in mixed reality (XR), i.e., specifically augmented reality (AR) interactions.
 
@@ -71,13 +72,19 @@ We note that the headset implementation is not fully complete, however, we provi
 If you use this software, please cite the following paper:
 
 ```bibtex
-@misc{Dogan_2024_XRObjects,
-      title={Augmented Object Intelligence: Making the Analog World Interactable with XR-Objects}, 
-      author={Mustafa Doga Dogan and Eric J. Gonzalez and Andrea Colaco and Karan Ahuja and Ruofei Du and Johnny Lee and Mar Gonzalez-Franco and David Kim},
-      year={2024},
-      eprint={2404.13274},
-      archivePrefix={arXiv},
-      primaryClass={cs.HC}
+@inproceedings{Dogan_2024_XRObjects,
+	address = {New York, NY, USA},
+	title = {Augmented {Object} {Intelligence} with {XR}-{Objects}},
+	isbn = {979-8-4007-0628-8/24/10},
+	url = {https://doi.org/10.1145/3654777.3676379},
+	doi = {10.1145/3654777.3676379},
+	language = {en},
+	booktitle = {Proceedings of the 37th {Annual} {ACM} {Symposium} on {User} {Interface} {Software} and {Technology}},
+	publisher = {Association for Computing Machinery},
+	author = {Dogan, Mustafa Doga and Gonzalez, Eric J and Ahuja, Karan and Du, Ruofei and Colaco, Andrea and Lee, Johnny and Gonzalez-Franco, Mar and Kim, David},
+	month = oct,
+	year = {2024},
+	file = {Dogan et al. - 2024 - Augmented Object Intelligence with XR-Objects.pdf:/Users/doga/Zotero/storage/8HWDAVVG/Dogan et al. - 2024 - Augmented Object Intelligence with XR-Objects.pdf:application/pdf},
 }
 ```
 
