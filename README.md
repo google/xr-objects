@@ -2,7 +2,7 @@
 
 XR-Objects is an implementation of Augmented Object Intelligence (AOI) as described in our [ACM UIST'24](https://uist.acm.org/2024/) paper: 
 
-<sub>Mustafa Doga Dogan, Eric J. Gonzalez, Karan Ahuja, Ruofei Du, Andrea Colaço, Johnny Lee, Mar Gonzalez-Franco, and David Kim. 2024. Augmented Object Intelligence with XR-Objects. In The 37th Annual ACM Symposium on User Interface Software and Technology (UIST ’24), October 13–16, 2024, Pittsburgh, PA, USA. ACM, New York, NY, USA, 15 pages. https://doi.org/10. 1145/3654777.3676379 </sub>
+<sub>Mustafa Doga Dogan, Eric J. Gonzalez, Karan Ahuja, Ruofei Du, Andrea Colaço, Johnny Lee, Mar Gonzalez-Franco, and David Kim. 2024. Augmented Object Intelligence with XR-Objects. In The 37th Annual ACM Symposium on User Interface Software and Technology (UIST ’24), October 13–16, 2024, Pittsburgh, PA, USA. ACM, New York, NY, USA, 15 pages. https://doi.org/10.1145/3654777.3676379 </sub>
 
 This repository contains the Unity project files for the XR-Objects project, which includes an implementation for automatically generating and anchoring actionable context menus for real-world objects in mixed reality (XR), i.e., specifically augmented reality (AR) interactions.
 
