@@ -128,7 +128,7 @@ public class ImageQuery : MonoBehaviour
   void Awake()
   {
 
-    queryURL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=" + apiKey;
+    queryURL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=" + apiKey;
 
   }
   void Start()
