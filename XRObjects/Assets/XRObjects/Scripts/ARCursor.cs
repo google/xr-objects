@@ -251,12 +251,12 @@ public class ARCursor : MonoBehaviour
               var cropWindowHeight = UnityEngine.Screen.height * (float)(detectedObject.LocationData?.RelativeBoundingBox?.Height);
 
 
-              Debug.Log("ScreenCapturedTexture 1 ");
+              // Debug.Log("ScreenCapturedTexture 1 ");
 
               // crop it
               var ScreenCapturedTextureCropped = CropTexture(ScreenCapturedTexture, new UnityEngine.Rect(cropWindowX, cropWindowY, cropWindowWidth, cropWindowHeight));
 
-              Debug.Log("ScreenCapturedTexture 2");
+              // Debug.Log("ScreenCapturedTexture 2");
 
               // transfer the imagetexture variable
               newContainer.GetComponent<ImageQuery>().Texture2DImageOfObject = ScreenCapturedTextureCropped;
@@ -270,7 +270,7 @@ public class ARCursor : MonoBehaviour
               var rawImageObject = newContainer.transform.Find("UI/CanvasMetadata/imgObjectCaptured");
               rawImageObject.GetComponent<RawImage>().texture = ScreenCapturedTextureCropped;
 
-              Debug.Log("ScreenCapturedTexture 3");
+              // Debug.Log("ScreenCapturedTexture 3");
 
               // add a text label on top of the object
               var textObjectName = newContainer.transform.Find("UI/CanvasMetadata/textObjectName");

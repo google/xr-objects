@@ -21,7 +21,7 @@ using TMPro;
 public class ImageQuery : MonoBehaviour
 {
 
-  // Get your Gemini API key here: https://aistudio.google.com/app/apikey
+  // Get your Gemini API key here: https://aistudio.google.com/app/apikey 
   private string apiKey = "enter your key here";
   private string queryURL;
 
@@ -128,7 +128,7 @@ public class ImageQuery : MonoBehaviour
   void Awake()
   {
 
-    queryURL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=" + apiKey;
+    queryURL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + apiKey;
 
   }
   void Start()
@@ -149,7 +149,7 @@ public class ImageQuery : MonoBehaviour
                     + "{\"text\":\"" + promptText + "\"},"
                     + "{\"inline_data\": { \"mime_type\":\"image/jpeg\", \"data\":\"" + base64Image + "\"}}"
                     + "]"
-                    + "}]"
+                    + "}],\"tools\": [ {\"google_search\": {}} ]"
                     + "}";
     return jsonData;
   }
@@ -200,8 +200,10 @@ public class ImageQuery : MonoBehaviour
 
 
   // method for running the initial query
-  public IEnumerator RunInitialImageQuery(string initialPrompt = "Don't answer as complete sentence! Name/brand + model/type/species? (no size information)")
+  public IEnumerator RunInitialImageQuery(string initialPrompt = initial_prompt) //"Don't answer as complete sentence! Name/brand + model/type/species? (no size information)")
   {
+
+    Debug.Log("GEMINI - Getting object label...");
 
     //create JsonString
     // string initialPrompt = "Don't answer as complete sentence! Name/brand + model/type/species? (no size information)";
@@ -280,5 +282,25 @@ public class ImageQuery : MonoBehaviour
       }
     }
   }
+
+    const string initial_prompt = @"You are powering an interactive tool called XR-Objects. The user has provided you with an image of an object. For this task please provide a brief label for the object. 
+
+                                For consumer products, search the internet and include the brand and name (e.g., “Apple Airpods” or “Logitech MX Keys Mini”). 
+                                Similarly for packaged food and drink items (e.g., “Arizona Iced Tea”).
+
+                                For generic objects, like cups, bowls, tissues, boxes with no notable features then just simply say what it is (e.g., “Mug”) - do not include terms like “generic” in your label. 
+
+                                For plants and other living things, try to include a species (or however they are commonly known) - for example, “Pothos” is preferable to “plant”. 
+                                
+                                For fruits and other foods, try to include the type as well (e.g., “Fuji Apple”) - if no specific type is clear, it is fine to just say the simple name (e.g., “Orange” or “Hot Dog”). 
+
+                                For books, search the internet and include the title in quotes followed by the author (e.g., “The DaVinci Code” by Dan Brown).
+
+                                Do not include size information. Search the internet as needed to confirm product names.
+
+                                In your response, please do not provide any other text besides the label.
+                                —---
+                                Now please provide your label for the object in the image. 
+                                ";
 
 }

@@ -166,9 +166,9 @@ public class ARMPObjectDetection : MonoBehaviour
         // https://docs.unity.cn/Packages/com.unity.xr.arfoundation@1.1/manual/cpu-camera-image.html
         var length = image.width * adjustedCpuImageHeight * 4;
         _bufferTemp = new NativeArray<byte>(length, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
-        Debug.Log("DD: _bufferTemp 1");
+        // Debug.Log("DD: _bufferTemp 1");
         _buffer.CopyTo(_bufferTemp);
-        Debug.Log("DD: _bufferTemp 2");
+        // Debug.Log("DD: _bufferTemp 2");
 
         m_Texture = new Texture2D(
               conversionParams.outputDimensions.x,
@@ -188,10 +188,10 @@ public class ARMPObjectDetection : MonoBehaviour
 
         // Done with our temporary data
         // THIS MIGHT BE DANGEROUS
-        Debug.Log("DD: _bufferTemp 3");
+        // Debug.Log("DD: _bufferTemp 3");
         _bufferTemp.Dispose();
         // Destroy(m_Texture); 
-        Debug.Log("DD: _bufferTemp 4");
+        // Debug.Log("DD: _bufferTemp 4");
       }
 
       // var imageFrame = new ImageFrame(ImageFormat.Types.Format.Srgba, image.width, image.height, 4 * image.width, _buffer);
