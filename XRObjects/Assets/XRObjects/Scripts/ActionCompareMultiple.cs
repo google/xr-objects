@@ -6,6 +6,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -87,6 +88,7 @@ public class ActionCompareMultiple : ActionClass
     infoDisplayPanel.GetComponent<InfoPanelManager>().currentAction = this.gameObject;
     infoDisplayActive = !infoDisplayActive;
 
+    UnmarkAllObjects();
   }
 
 
@@ -103,20 +105,32 @@ public class ActionCompareMultiple : ActionClass
     {
 
       GameObject realObject = realObjectProxies[idx];
-      objectsNameList += "[" + (idx + 1) + "] " + realObject.GetComponentInParent<SetupObjectProxy>().objectTitle + ", ";
+      objectsNameList += "[" + (idx) + "] " + realObject.GetComponentInParent<SetupObjectProxy>().objectTitle + ", ";
 
 
       texture2DList.Add(realObject.GetComponentInParent<ImageQuery>().Texture2DImageOfObject);
     }
 
-    // Debug.Log("WHICH OBJECTS objectsNameList" + objectsNameList);
+    // Remove all characters that are NOT letters, numbers, or square brackets
+    // (quotes were creating problems when included in the prompt)
+    objectsNameList = objectsNameList.Replace("\"", "");
+    // objectsNameList = Regex.Replace(objectsNameList, "[^a-zA-Z0-9\\[\\]]", "");
+
+    Debug.Log("WHICH OBJECTS objectsNameList" + objectsNameList);
 
     var stitchedTexture = StitchTexturesHorizontally(texture2DList.ToArray());
 
     if (stitchedTexture != null)
     {
       GameObject.Find("ObjectComparer").GetComponent<ImageQuery>().Texture2DImageOfObject = stitchedTexture;
+
+      RawImage imagePreview = GameObject.FindWithTag("ObjectComparerImagePreview")?.GetComponent<RawImage>();
+      if (imagePreview != null) {
+        imagePreview.texture = stitchedTexture;
+      }
     }
+
+
 
   }
 
@@ -214,8 +228,21 @@ public class ActionCompareMultiple : ActionClass
       questionQueryOngoing = false;
     }
 
+    string compare_pre_prompt = @$"You are powering an interactive tool called XR-Objects. 
+                                    The user has provided you with an image of multiple objects and is asking a question. 
+                                    
+                                    Here is the list of the objects: {objectsNameList}.
+                                    
+                                    No need to mention index numbers in your response. 
+                                    Keep your response extremely (extremely!) brief and concise - just a few words, maximum 1-2 sentences. 
+                                    Don't say things like 'Based on the image…' or 'It looks like…'. 
+                                    Use the internet as needed to help answer the question to the best of your ability. 
+                                    
+                                    Here is their query: ";
+    string combinedPrompt = compare_pre_prompt + transcribedUserPrompt; 
+
     // _ = cameraMono.StartCoroutine(GameObject.Find("ObjectComparer").GetComponentInParent<ImageQuery>().RunFollowUpImageQuery(transcribedUserPrompt + "? No need to mention index numbers. Mention the object name.", (result) =>
-    _ = cameraMono.StartCoroutine(GameObject.Find("ObjectComparer").GetComponentInParent<ImageQuery>().RunInitialImageQueryWithOutput(transcribedUserPrompt + "? No need to mention index numbers. Mention the object name.", (result) =>
+    _ = cameraMono.StartCoroutine(GameObject.Find("ObjectComparer").GetComponentInParent<ImageQuery>().RunInitialImageQueryWithOutput(combinedPrompt, (result) =>
     {
       //Do something with the result variable
       Debug.Log("HTTP RunSearch result: " + result);
@@ -233,10 +260,22 @@ public class ActionCompareMultiple : ActionClass
       if (transcribedUserPrompt.ToLower().StartsWith("which"))
       {
         //var promptWhich = "Considering that the items are ordered from left to right with the first one being index 0, tell me ONLY the correct index, written as number characters: " + transcribedUserPrompt + "?   Absolutely don't give the indices of the other ones.";
-        var promptWhich = "Considering that the items are ordered from left to right with the first one being index 0, tell me ONLY the correct index, written as number characters: " + transcribedUserPrompt + "?  Only say the CORRECT indices. For example, only say '0' or '0 and 1'.";
+        // var promptWhich = "Considering that the items are ordered from left to right with the first one being index 0, tell me ONLY the correct index, written as number characters: " + transcribedUserPrompt + "?  Only say the CORRECT indices. For example, only say '0' or '0 and 1'.";
+        var promptWhich = @$"You are powering an interactive tool called XR-Objects. 
+                            The user has provided you with an image of multiple objects and is asking a question.
+                                    
+                            Here is a list of the items and their indices:  {objectsNameList}.
+
+                            Considering that these items in the image are ordered from left to right with the first one being index 0, 
+                            answer the user's question by telling me ONLY the correct indecies written as a comma seperated list. 
+                            For example: '0' or '0,3'.
+                            
+                            IMPORTANT: Do NOT include any other words in your response other than this list. 
+                            Use the internet as needed to help answer the question to the best of your ability. 
+                            
+                            Here is the user's question: {transcribedUserPrompt}";
 
         RunFollowUpSearchWhich(promptWhich);
-
       }
 
     }));
@@ -300,6 +339,18 @@ public class ActionCompareMultiple : ActionClass
 
     }
 
+  }
+
+  public void UnmarkAllObjects() {
+    // first get all objects images and stitch them together horizontally
+    GameObject[] realObjectProxies = GameObject.FindGameObjectsWithTag("RealObjectSphere");
+    // List<Texture2D> texture2DList = new List<Texture2D>();
+
+    for (int idx = 0; idx < realObjectProxies.Length; idx++)
+    {
+      GameObject realObject = realObjectProxies[idx];
+      realObject.GetComponent<MeshRenderer>().material = Material0;
+      }
   }
 
 }

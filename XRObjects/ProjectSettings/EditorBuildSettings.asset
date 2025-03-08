@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/XRObjects/SceneXRObjects.unity
     guid: 8856bdba341c84330b10c89aaee739ad
+  - enabled: 1
+    path: Assets/XRObjects/SceneXRObjectsMinimal.unity
+    guid: 54588478ff188e0498d3e6fedc8f6af1
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 45b5bbebc915a42548be460497e01594,
       type: 2}

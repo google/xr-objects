@@ -176,7 +176,7 @@ public class SetupObjectProxy : MonoBehaviour
     }
 
     // check if it is a widget, if so, then add the "control" menu
-    if (newMetadata.Contains("Echo") || newMetadata.Contains("Daikin") || newMetadata.ToLower().Contains("speaker") || newMetadata.ToLower().Contains("thermostat"))
+    if (newMetadata.Contains("Echo") || newMetadata.Contains("Daikin") || newMetadata.ToLower().Contains("speaker") || newMetadata.ToLower().Contains("thermostat") || newMetadata.ToLower().Contains("google home") || newMetadata.ToLower().Contains("google nest") || newMetadata.Contains("Nest"))
     {
       circularPanel.GetComponentInChildren<ActionControl>(true).gameObject.SetActive(true);
       // restart ActionControl script to rearrange the layout of actions

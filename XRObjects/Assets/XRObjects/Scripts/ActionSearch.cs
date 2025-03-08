@@ -89,7 +89,9 @@ public class ActionSearch : ActionClass
       questionQueryOngoing = false;
     }
 
-    _ = StartCoroutine(GetComponentInParent<ImageQuery>().RunFollowUpImageQuery(transcribedUserPrompt, (result) =>
+    Debug.Log("GEMINI - Answering custom follow up question...");
+
+    _ = StartCoroutine(GetComponentInParent<ImageQuery>().RunFollowUpImageQuery(custom_search_pre_prompt + transcribedUserPrompt, (result) =>
     {
       //Do something with the result variable
       Debug.Log("HTTP RunSearch result: " + result);
@@ -133,8 +135,10 @@ public class ActionSearch : ActionClass
 
   public void RunSearch()
   {
-    var prompt = "Can you give me the ones that make sense for this object? and fill in the missing …. using info from the Internet. Exclude the one that are irrelevant. Divide the relevant ones with a *. *: Price: (… give price+vendor+score/rating) * Cheaper alternatives: name - price * Main ingredients: … (top 2) * Calories: … * Allergens: … * Instructions: … (short) * Care: …(if fashion/tool/plant) * Extremely short answers. Exclude answers that are 'None' or 'n/a' or 'irrelevant'. Divide each with a *. Limit to 30 words";
+    // var prompt = "Can you give me the ones that make sense for this object? and fill in the missing …. using info from the Internet. Exclude the one that are irrelevant. Divide the relevant ones with a *. *: Price: (… give price+vendor+score/rating) * Cheaper alternatives: name - price * Main ingredients: … (top 2) * Calories: … * Allergens: … * Instructions: … (short) * Care: …(if fashion/tool/plant) * Extremely short answers. Exclude answers that are 'None' or 'n/a' or 'irrelevant'. Divide each with a *. Limit to 30 words";
+    var prompt = search_prompt;
     //* Assess health: health of plant (if plant).
+    Debug.Log("GEMINI - Running initial Search...");
 
     _ = StartCoroutine(GetComponentInParent<ImageQuery>().RunFollowUpImageQuery(prompt, (result) =>
     {
@@ -218,4 +222,81 @@ public class ActionSearch : ActionClass
   
   }
 
+  string search_prompt = 
+      @"You are powering an interactive tool called XR-Objects. The user has provided you with an image of an object. 
+
+      For this task please search the internet and provide a subset of the following information relevant for this object.
+
+      • Price: … give price and (vendor and/or rating) 
+      • Cheaper Alternatives: … name (price) 
+      • [if consumer product] Rating: … (source)
+      • [if food] Ingredients: … (top 2) 
+      • [if food] Calories: … 
+      • [if food] Allergens: … 
+      • Instructions: … (extremely brief) 
+      • [if fashion/tool/plant] Care: …
+
+      Choose the 2 most relevant features from above for the object. 
+      Remember to Search the internet as needed to confirm values for the relevant features.
+      Exclude answers that are 'None' or 'n/a' or 'irrelevant'. 
+      Return each on a new line beginning with a bullet point (U+2022, •). 
+      If there is only one category you feel is relevant, then just use one. 
+      Do not reply with anything other than the bulleted list. 
+      Keep your responses extremely short. Do not use more than 30 words.
+
+      Important: do not include anything in your response other than a brief bulleted list. 
+      Do NOT say things like 'Based on the image...', or 'It looks like...'. Just the brief list.
+
+      Here are a few examples.
+
+      —
+      Object: Apple 
+
+      Response:
+      • Price: $1.99 (QFC)
+      • Calories: ~95
+
+      —-
+      Object: Potted Cactus
+
+      Response:
+      • Care: Water once a week
+      • Price: ~$10 (Target)
+
+      —-
+      Object: M&Ms
+
+      Response:
+      • Calories: ~200
+      • Allergens: Peanuts
+
+      —-
+      Object: Logitech Mouse
+
+      Response:
+      • Price: $89.99 (Amazon)
+      • Review: 4.5/5 (Amazon)
+
+      —-
+      Object: Tide Fabric Softener
+
+      Response:
+      • Price: $19.99 (Walmart)
+      • Instructions: Add 1 cup to laundry
+
+      —--
+
+      Now please provide your response for the object in the image. 
+      ";
+
+  string custom_search_pre_prompt = @"You are powering an interactive tool called XR-Objects. 
+      The user has provided you with an image of an object and is asking a question. 
+      
+      Keep your response extremely (extremely!) brief and concise - just 1-3 sentences, 30 words max. 
+      Don't say things like 'Based on the image…' or 'It looks like…'. 
+      Use the internet as needed to help answer the question to the best of your ability.
+      No need to mention your sources.
+
+      Here is their query: 
+      ";
 }
